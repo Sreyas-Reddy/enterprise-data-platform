@@ -1,0 +1,11 @@
+# secrets
+*.key
+*.pem
+*.env
+
+# data files
+data/raw/*
+data/processed/*
+
+# mac
+.DS_Store
