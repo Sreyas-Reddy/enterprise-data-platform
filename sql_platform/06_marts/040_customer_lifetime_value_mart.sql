@@ -1,0 +1,6 @@
+CREATE OR REPLACE VIEW MART.CUSTOMER_LIFETIME_VALUE AS
+SELECT
+    customer_id,
+    SUM(payment_value) AS lifetime_value
+FROM STAGING.STG_PAYMENTS
+GROUP BY customer_id;

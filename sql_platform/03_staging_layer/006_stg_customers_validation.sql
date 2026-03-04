@@ -1,0 +1,27 @@
+USE WAREHOUSE EDP_WH;
+USE DATABASE ENTERPRISE_DATA_PLATFORM_DB;
+USE SCHEMA STAGING;
+-- Row count comparision between raw and stg
+SELECT COUNT(*) AS raw_cnt
+FROM ENTERPRISE_DATA_PLATFORM_DB.RAW.OLIST_CUSTOMERS_RAW;
+
+SELECT COUNT(*) AS stg_cnt
+FROM ENTERPRISE_DATA_PLATFORM_DB.STAGING.STG_CUSTOMERS;
+
+-- Whitespace validation in stg_customers
+
+SELECT COUNT(*) AS bad_whitespace_city
+FROM ENTERPRISE_DATA_PLATFORM_DB.STAGING.STG_CUSTOMERS
+WHERE customer_city != TRIM(customer_city);
+
+
+SELECT COUNT(*) AS bad_whitespace_state
+FROM ENTERPRISE_DATA_PLATFORM_DB.STAGING.STG_CUSTOMERS
+WHERE customer_state != TRIM(customer_state);
+
+-- Standardization check
+
+SELECT DISTINCT customer_state
+FROM ENTERPRISE_DATA_PLATFORM_DB.STAGING.STG_CUSTOMERS
+ORDER BY customer_state;
+

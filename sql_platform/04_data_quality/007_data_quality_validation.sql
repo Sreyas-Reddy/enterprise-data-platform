@@ -1,0 +1,26 @@
+USE WAREHOUSE EDP_WH;
+USE DATABASE ENTERPRISE_DATA_PLATFORM_DB;
+USE SCHEMA STAGING;
+
+
+SELECT COUNT(*) AS null_order_id
+FROM STG_ORDERS
+WHERE order_id IS NULL;
+
+SELECT COUNT(*) AS null_customer_id
+FROM STG_ORDERS
+WHERE customer_id IS NULL;
+
+SELECT order_id, COUNT(*) AS cnt
+FROM STG_ORDERS
+GROUP BY order_id
+HAVING COUNT(*) > 1
+ORDER BY cnt DESC
+LIMIT 10;
+
+SELECT COUNT(*) AS orphan_orders
+FROM STG_ORDERS o
+LEFT JOIN STG_CUSTOMERS c
+  ON o.customer_id = c.customer_id
+WHERE o.customer_id IS NOT NULL
+  AND c.customer_id IS NULL;
