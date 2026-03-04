@@ -1,8 +1,10 @@
 # Enterprise Data Quality & Governance Platform
 
+Snowflake • dbt • Data Quality • Metadata Governance • Data Reliability • Data Observability
+
 ![Enterprise Data Platform Architecture](architecture/enterprise_data_platform_architecture.png)
 
-Snowflake • dbt • Data Quality • Metadata Governance • Data Reliability • Data Observability
+
 
 ---
 
@@ -541,4 +543,5 @@ LinkedIn
 https://www.linkedin.com/in/sreyas-lankala/
 
 GitHub  
+
 https://github.com/sreyas-lankala
