@@ -10,25 +10,171 @@ Snowflake • dbt • Data Quality • Metadata Governance • Data Reliability
 
 This project demonstrates a **modern enterprise data platform architecture** built on **Snowflake and dbt** with integrated **data quality monitoring, metadata governance, lineage tracking, and reliability monitoring**.
 
-The platform simulates how organizations ensure **trusted, governed, and reliable data** across analytical systems.
+The platform simulates how organizations build **trusted data systems** where data pipelines are governed, monitored, and validated to ensure reliable analytics.
 
-The design follows a **layered architecture used by modern enterprise data engineering teams**.
+The design follows a **layered architecture used in modern enterprise data platforms**.
+
+---
+
+# 🚀 Platform Demo (End-to-End Execution)
+
+The platform can be executed end-to-end using the provided SQL scripts.
+
+This demonstrates how enterprise data teams orchestrate **data ingestion, transformation, validation, governance, and monitoring**.
+
+---
+
+## Step 1 — Create Platform Infrastructure
+
+Run the platform setup script:
+
+```sql
+sql_platform/01_platform_setup/001_create_platform.sql
+```
+
+This creates:
+
+- Snowflake database
+- platform schemas
+- base infrastructure
+
+Schemas created:
+
+- RAW
+- STAGING
+- DBT_SREYASLANKALA
+- DQ
+- META
+- OPS
+
+---
+
+## Step 2 — Create RAW Data Layer
+
+Execute:
+
+```sql
+sql_platform/02_raw_layer/004_create_raw_tables.sql
+sql_platform/02_raw_layer/005_load_raw_data.sql
+```
+
+This loads source datasets into the **RAW schema**.
+
+Example datasets:
+
+- customers
+- orders
+- order_items
+- payments
+
+---
+
+## Step 3 — Run STAGING Transformations
+
+Execute:
+
+```sql
+sql_platform/03_staging_layer/006_stg_customers_validation.sql
+```
+
+This prepares standardized datasets for transformation.
+
+The staging layer performs:
+
+- data cleansing
+- column standardization
+- schema normalization
+
+---
+
+## Step 4 — Execute dbt Transformation Models
+
+Run dbt transformations:
+
+```bash
+cd edp_dbt
+dbt run
+```
+
+This generates analytics-ready datasets used for reporting and monitoring.
+
+---
+
+## Step 5 — Run Data Quality Framework
+
+Execute:
+
+```sql
+sql_platform/04_data_quality/007_data_quality_validation.sql
+sql_platform/04_data_quality/036_data_quality_rule_engine.sql
+sql_platform/04_data_quality/043_metadata_driven_dq_rule_engine.sql
+```
+
+This runs automated validation rules and logs failures.
+
+---
+
+## Step 6 — Populate Metadata Governance Layer
+
+Execute scripts in:
+
+```
+sql_platform/05_metadata/
+```
+
+This builds governance components including:
+
+- data dictionary
+- data ownership
+- lineage mapping
+- data contracts
+- SLA tracking
+
+---
+
+## Step 7 — Run Monitoring Layer
+
+Execute monitoring views:
+
+```
+sql_platform/07_monitoring/
+```
+
+This produces operational dashboards and reliability metrics.
+
+---
+
+## Optional — Execute Full Platform
+
+Run the orchestration script:
+
+```sql
+sql_platform/000_run_full_platform.sql
+```
+
+This simulates **enterprise pipeline execution**.
+
+Execution flow:
+
+```
+RAW → STAGING → dbt → Data Quality → Metadata Governance → Monitoring
+```
 
 ---
 
 # Architecture Overview
 
-The platform follows a modern layered architecture:
+The platform follows a **layered enterprise architecture**.
 
 ```
 Source Data
-   ↓
+    ↓
 RAW Layer
-   ↓
+    ↓
 STAGING Layer
-   ↓
+    ↓
 dbt Transformations
-   ↓
+    ↓
 Analytics / Data Marts
 ```
 
@@ -42,28 +188,6 @@ Reliability Monitoring
 
 ---
 
-# Platform Execution Flow
-
-The platform simulates how enterprise pipelines are executed end-to-end.
-
-Execution flow:
-
-1. Load source datasets into the **RAW schema**
-2. Standardize and clean data in the **STAGING schema**
-3. Execute **dbt transformation models**
-4. Run **data quality validation rules**
-5. Generate **data quality scorecards**
-6. Update **metadata governance tables**
-7. Refresh **monitoring dashboards and SLA alerts**
-
-Execution pattern:
-
-```
-RAW → STAGING → dbt Models → Data Quality Checks → Metadata Governance → Monitoring
-```
-
----
-
 # Platform Schemas
 
 The platform is organized into logical schemas representing each layer.
@@ -71,19 +195,17 @@ The platform is organized into logical schemas representing each layer.
 | Schema | Purpose |
 |------|------|
 | RAW | Raw ingestion layer |
-| STAGING | Data standardization layer |
-| DBT_SREYASLANKALA | dbt transformation models |
+| STAGING | Transformation preparation |
+| DBT_SREYASLANKALA | dbt analytical models |
 | DQ | Data quality monitoring framework |
-| META | Metadata governance layer |
-| OPS | Monitoring and reliability metrics |
+| META | Metadata governance |
+| OPS | Platform monitoring |
 
 ---
 
 # Data Ingestion Layer
 
-Raw source datasets are loaded into the **RAW schema** without transformation.
-
-This preserves the original structure of the source data.
+Source datasets are loaded into the **RAW schema** without transformation.
 
 ![RAW Layer](screenshots/01_raw_layer_tables.png)
 
@@ -91,37 +213,35 @@ Example datasets:
 
 - customers
 - orders
-- order_items
+- order items
 - payments
 
 ---
 
 # Transformation Layer
 
-Data is standardized and cleaned in the **STAGING schema**.
-
-This layer prepares datasets for transformation and analytical modeling.
+Data is standardized and prepared in the **STAGING schema**.
 
 ![STAGING Layer](screenshots/02_staging_layer_tables.png)
 
-Examples include:
+This layer performs:
 
-- standardized customer data
-- normalized order records
-- cleaned transaction datasets
+- schema normalization
+- field standardization
+- data preparation for analytics
 
 ---
 
 # dbt Transformation Models
 
-The **dbt layer** builds analytics-ready datasets used for reporting and monitoring.
+dbt models generate analytics-ready datasets.
 
 ![dbt Models](screenshots/03_dbt_models.png)
 
 Example models:
 
 - customer metrics
-- order aggregations
+- order aggregates
 - retention KPIs
 - anomaly detection datasets
 
@@ -129,43 +249,54 @@ dbt provides:
 
 - modular SQL transformations
 - dependency management
-- automated testing
-- reproducible pipelines
+- pipeline reproducibility
 
 ---
 
 # Data Quality Framework
 
-A dedicated **Data Quality framework** validates datasets across the platform.
+The platform includes a **dedicated data quality validation framework**.
 
 ![DQ Tables](screenshots/04_dq_tables.png)
 
-Core components:
+Components include:
 
 - rule execution engine
-- anomaly detection
 - exception tracking
-- validation result logging
+- anomaly logging
+- validation result storage
 
-This ensures datasets meet **expected quality standards before downstream consumption**.
+---
+
+# Metadata Driven Data Quality Rules
+
+The platform implements a **metadata-driven data quality rule engine**.
+
+Rules are stored in governance tables and dynamically executed against datasets.
+
+Example rules:
+
+- NOT NULL validation
+- duplicate detection
+- business rule checks
+
+![Metadata Rules](screenshots/10_metadata_dq_rules.png)
 
 ---
 
 # Data Quality Scorecards
 
-The platform produces automated **data reliability scorecards**.
+Automated **data reliability scorecards** monitor platform health.
 
 ![DQ Scorecard](screenshots/05_dq_scorecard_results.png)
 
-Scorecards track:
+Metrics tracked:
 
 - tests executed
 - failed tests
 - row-level failures
 - exception counts
 - pipeline run status
-
-These metrics help teams monitor **data reliability and pipeline health**.
 
 ---
 
@@ -175,15 +306,13 @@ The **META schema** manages governance and documentation.
 
 ![Metadata Tables](screenshots/06_metadata_tables.png)
 
-Key governance components:
+Governance features:
 
 - data dictionary
-- dataset ownership
 - lineage mapping
+- data ownership
 - data contracts
 - SLA definitions
-
-This layer enables **data transparency and governance enforcement**.
 
 ---
 
@@ -193,32 +322,28 @@ Operational monitoring is implemented through the **OPS schema**.
 
 ![Monitoring Views](screenshots/07_ops_monitoring_views.png)
 
-Monitoring features:
+Monitoring features include:
 
-- pipeline health metrics
-- reliability scorecards
+- pipeline health
+- SLA tracking
 - anomaly detection
-- SLA breach alerts
-
-This enables proactive monitoring of **data platform health**.
+- reliability metrics
 
 ---
 
 # Platform Object Distribution
 
-The following view summarizes the distribution of platform objects across layers.
+The following query summarizes platform objects across layers.
 
 ![Platform Summary](screenshots/08_platform_layer_summary.png)
 
-This illustrates how ingestion, transformation, governance, and monitoring components are structured across schemas.
+This illustrates how ingestion, transformation, governance, and monitoring components are structured.
 
 ---
 
 # Data Lineage Example
 
-The platform simulates lineage tracking between datasets.
-
-Example lineage:
+Example lineage across the platform:
 
 ```
 RAW_CUSTOMERS
@@ -232,18 +357,17 @@ DQ_SCORECARD
 OPS_MONITORING_VIEWS
 ```
 
-Lineage tracking allows teams to:
+Lineage tracking enables:
 
-- trace data origins
-- diagnose upstream failures
-- enforce data contracts
-- monitor dataset dependencies
+- data traceability
+- root cause analysis
+- governance enforcement
 
 ---
 
 # Platform Capabilities
 
-The platform demonstrates key capabilities found in enterprise data systems.
+The platform demonstrates capabilities used in enterprise data systems.
 
 | Capability | Implementation |
 |------|------|
@@ -251,46 +375,12 @@ The platform demonstrates key capabilities found in enterprise data systems.
 | Data Transformation | dbt models |
 | Data Quality Validation | SQL rule engine |
 | Metadata Governance | META schema |
-| Data Dictionary | metadata tables |
+| Data Dictionary | governance tables |
 | Data Lineage | lineage mapping |
-| Data Contracts | governance rules |
+| Data Contracts | metadata validation |
 | Reliability Monitoring | OPS schema views |
 | SLA Monitoring | alert views |
 | Anomaly Detection | monitoring queries |
-
----
-
-# Pipeline Execution Script
-
-The repository includes a script simulating **end-to-end platform execution**.
-
-```
-sql_platform/000_run_full_platform.sql
-```
-
-This script orchestrates:
-
-- ingestion processes
-- transformation steps
-- data quality validation
-- governance updates
-- monitoring refresh queries
-
-This reflects how enterprise pipelines maintain **repeatable and auditable execution workflows**.
-
----
-
-# Example Data Quality Checks
-
-The platform includes automated checks such as:
-
-- null value validation
-- duplicate record detection
-- referential integrity checks
-- business rule validation
-- KPI anomaly detection
-
-These checks ensure analytical datasets meet **expected quality thresholds**.
 
 ---
 
@@ -346,20 +436,19 @@ enterprise-data-platform
 
 Potential improvements include:
 
-- integration with data catalogs (Collibra / Alation)
+- integration with enterprise data catalogs (Collibra / Alation)
 - automated lineage visualization
-- CI/CD data pipeline testing
-- alerting pipelines
-- observability dashboards
-- data contract enforcement automation
+- CI/CD pipeline testing
+- data observability dashboards
+- automated SLA alerting
 
 ---
 
 # Author
 
-Sreyas Lankala
+Sreyas Lankala  
 
-Data Quality • Governance • Metadata • Data Reliability
+Data Quality • Governance • Metadata • Data Reliability  
 
 LinkedIn  
 https://www.linkedin.com/in/sreyas-lankala/
