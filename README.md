@@ -517,7 +517,7 @@ This project demonstrates skills relevant to:
 • Metadata Engineer  
 • Analytics Engineer  
 • Data Platform Engineer  
-• Data Reliability Engineer  
+• Data Reliability Engineer
 
 ---
 
