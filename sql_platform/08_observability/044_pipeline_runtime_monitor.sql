@@ -1,0 +1,11 @@
+CREATE OR REPLACE TABLE OPS.PIPELINE_RUNTIME_MONITOR (
+
+pipeline_name STRING,
+run_id STRING,
+start_time TIMESTAMP,
+end_time TIMESTAMP,
+runtime_seconds INTEGER,
+status STRING,
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP()
+
+);
