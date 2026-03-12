@@ -4,7 +4,10 @@ Snowflake • dbt • Data Quality • Metadata Governance • Data Reliability 
 
 ![Enterprise Data Platform Architecture](architecture/enterprise_data_platform_architecture.png)
 
+<<<<<<< HEAD
 
+=======
+Snowflake • dbt • Data Quality • Metadata Governance • Data Reliability • Data Observability • CI/CD • Orchestration
 
 ---
 
@@ -18,16 +21,18 @@ This project demonstrates a **modern enterprise data platform architecture** bui
 • Data Lineage  
 • Data Reliability Monitoring  
 • Operational Observability  
+• Pipeline Orchestration  
+• CI/CD Automation  
 
-The platform simulates how organizations build **trusted data systems** where data pipelines are governed, monitored, and validated to ensure reliable analytics.
+The platform simulates how organizations build **trusted data systems** where pipelines are governed, monitored, and validated to ensure reliable analytics.
 
-The design follows a **layered architecture pattern used in modern enterprise data platforms**.
+The architecture follows a **layered enterprise data platform design pattern** commonly used in modern analytics environments.
 
 ---
 
 # Platform Architecture
 
-The platform follows a **layered enterprise data architecture**.
+The platform follows a **layered data architecture**.
 
 ```
 Source Systems
@@ -47,20 +52,22 @@ Metadata Governance
 Data Contracts
 Reliability Monitoring
 Operational Observability
+Pipeline Orchestration
+CI/CD Automation
 ```
 
-This layered design enables:
+This design enables:
 
 • trusted analytical datasets  
-• traceable data lineage  
+• traceable lineage across transformations  
 • enforceable governance rules  
-• automated data quality monitoring  
+• automated validation and monitoring  
 
 ---
 
-# 🚀 Platform Demo (End-to-End Execution)
+# 🚀 Platform Execution
 
-The entire platform can be executed using the SQL scripts in the repository.
+The platform can be executed end-to-end using the SQL scripts provided in the repository.
 
 This simulates how enterprise data teams orchestrate:
 
@@ -68,7 +75,7 @@ This simulates how enterprise data teams orchestrate:
 • transformation pipelines  
 • validation frameworks  
 • governance metadata  
-• operational monitoring
+• operational monitoring  
 
 ---
 
@@ -80,7 +87,7 @@ Run:
 sql_platform/01_platform_setup/001_create_platform.sql
 ```
 
-This script creates the **Snowflake platform environment**.
+This script creates the Snowflake platform environment.
 
 Schemas created:
 
@@ -112,7 +119,7 @@ Example datasets:
 - payments
 - sellers
 
-The RAW layer preserves **source-of-truth data** without transformation.
+The RAW layer preserves **source-of-truth data without transformation**.
 
 ---
 
@@ -129,27 +136,27 @@ The staging layer performs:
 • schema normalization  
 • column standardization  
 • basic validation rules  
-• transformation preparation
+• transformation preparation  
 
 ---
 
-## Step 4 — Execute dbt Transformation Models
+## Step 4 — Execute dbt Models
 
-Run dbt models:
+Run dbt transformations:
 
 ```bash
 cd edp_dbt
 dbt run
 ```
 
-This generates analytics-ready datasets in the **MART schema**.
+dbt produces analytics-ready datasets in the **MART schema**.
 
-dbt provides:
+Capabilities include:
 
 • modular SQL transformations  
 • dependency management  
-• pipeline reproducibility  
-• model lineage tracking
+• lineage tracking  
+• reproducible pipelines  
 
 ---
 
@@ -160,7 +167,6 @@ Execute:
 ```sql
 sql_platform/04_data_quality/007_data_quality_validation.sql
 sql_platform/04_data_quality/036_data_quality_rule_engine.sql
-sql_platform/04_data_quality/043_metadata_driven_dq_rule_engine.sql
 ```
 
 The framework executes automated validation rules and logs failures.
@@ -181,7 +187,7 @@ This builds governance metadata including:
 • data ownership  
 • lineage mapping  
 • data contracts  
-• pipeline SLA tracking
+• pipeline SLA tracking  
 
 ---
 
@@ -193,11 +199,11 @@ Execute monitoring views in:
 sql_platform/07_monitoring/
 ```
 
-This generates operational monitoring dashboards.
+These views provide operational monitoring metrics.
 
 ---
 
-## Optional — Run Full Platform Execution
+## Optional — Execute Full Platform
 
 Run:
 
@@ -213,14 +219,68 @@ RAW → STAGING → dbt → Data Quality → Metadata Governance → Monitoring
 
 ---
 
-# Platform Schemas
+# Pipeline Orchestration
 
-The platform is organized into logical schemas representing each responsibility.
+The platform supports automated orchestration using **Apache Airflow**.
+
+Airflow manages execution across ingestion, transformation, validation, governance updates, and monitoring.
+
+Pipeline flow:
+
+```
+RAW Ingestion
+      ↓
+STAGING Transformations
+      ↓
+dbt Model Execution
+      ↓
+Data Quality Validation
+      ↓
+Metadata Governance Updates
+      ↓
+Observability Monitoring
+```
+
+Example orchestration DAG:
+
+```
+orchestration/airflow_data_platform_dag.py
+```
+
+This demonstrates how the platform could be scheduled in a production environment.
+
+---
+
+# CI/CD Pipeline
+
+The repository includes a **GitHub Actions CI workflow**.
+
+Workflow file:
+
+```
+.github/workflows/data_platform_ci.yml
+```
+
+The CI pipeline validates the platform whenever code is pushed.
+
+CI pipeline steps:
+
+• repository checkout  
+• environment setup  
+• dbt installation  
+• project structure validation  
+• SQL script checks  
+
+This ensures reproducible platform deployments.
+
+---
+
+# Platform Schemas
 
 | Schema | Purpose |
 |------|------|
 | RAW | Raw ingestion layer |
-| STAGING | Data standardization |
+| STAGING | Data normalization |
 | MART | Analytics-ready datasets |
 | DQ | Data quality monitoring |
 | META | Metadata governance |
@@ -247,8 +307,6 @@ Example tables:
 - order_items
 - payments
 
-The RAW layer maintains **unaltered source data**.
-
 ---
 
 # Transformation Layer
@@ -257,7 +315,7 @@ The **STAGING schema** prepares datasets for analytical modeling.
 
 ![STAGING Layer](screenshots/02_staging_layer_tables.png)
 
-Key responsibilities:
+Responsibilities include:
 
 • schema normalization  
 • field standardization  
@@ -286,12 +344,12 @@ A dedicated **DQ schema** manages validation and monitoring.
 
 ![DQ Tables](screenshots/04_dq_tables.png)
 
-Framework components:
+Framework components include:
 
 • rule execution engine  
 • exception tracking  
 • anomaly logging  
-• validation results storage
+• validation result storage  
 
 ---
 
@@ -299,13 +357,11 @@ Framework components:
 
 The platform implements a **metadata-driven data quality rule engine**.
 
-Rules are stored in governance tables and dynamically executed.
-
-Example rules include:
+Example validations include:
 
 • NOT NULL validation  
 • duplicate detection  
-• business rule enforcement
+• business rule enforcement  
 
 ![Metadata Rules](screenshots/10_metadata_dq_rules.png)
 
@@ -313,7 +369,7 @@ Example rules include:
 
 # Data Quality Scorecards
 
-The platform generates **automated reliability scorecards**.
+Automated **reliability scorecards** monitor pipeline health.
 
 ![DQ Scorecard](screenshots/05_dq_scorecard_results.png)
 
@@ -321,7 +377,6 @@ Metrics tracked:
 
 • tests executed  
 • failed tests  
-• row-level failures  
 • exception counts  
 • pipeline run status  
 
@@ -333,12 +388,10 @@ The **META schema** stores governance metadata.
 
 ![Metadata Tables](screenshots/06_metadata_tables.png)
 
-Governance tables include:
-
 | Table | Purpose |
 |------|------|
 | DATA_DICTIONARY | Business definitions |
-| DATA_OWNERSHIP | Data ownership tracking |
+| DATA_OWNERSHIP | Data ownership |
 | LINEAGE_MAP | Dataset lineage |
 | DATA_CONTRACTS | Schema validation |
 | DATA_PIPELINE_SLA | SLA monitoring |
@@ -348,32 +401,20 @@ Governance tables include:
 
 # Platform Monitoring
 
-Operational monitoring is implemented using the **OPS schema**.
+Operational monitoring is implemented in the **OPS schema**.
 
 ![Monitoring Views](screenshots/07_ops_monitoring_views.png)
 
-Monitoring capabilities include:
+Capabilities include:
 
 • pipeline health monitoring  
 • SLA breach detection  
 • anomaly alerts  
-• reliability metrics
-
----
-
-# Platform Object Distribution
-
-The following query summarizes platform objects across layers.
-
-![Platform Summary](screenshots/08_platform_layer_summary.png)
-
-This illustrates the separation of ingestion, transformation, governance, and monitoring responsibilities.
+• reliability metrics  
 
 ---
 
 # Data Lineage Example
-
-Example lineage flow:
 
 ```
 RAW_CUSTOMERS
@@ -391,62 +432,11 @@ Lineage tracking enables:
 
 • traceability  
 • root cause analysis  
-• governance enforcement
-
----
-
-# Enterprise Data Platform Principles
-
-This project demonstrates key architectural principles.
-
-### Separation of Concerns
-
-Each platform responsibility is isolated.
-
-| Layer | Responsibility |
-|------|------|
-| RAW | ingestion |
-| STAGING | transformation |
-| MART | analytics |
-| DQ | validation |
-| META | governance |
-| OPS | monitoring |
-
----
-
-### Metadata Driven Governance
-
-Governance rules are stored as metadata.
-
-Examples:
-
-```
-META.DATA_DICTIONARY
-META.DATA_OWNERSHIP
-META.LINEAGE_MAP
-META.DATA_CONTRACTS
-META.DATA_PIPELINE_SLA
-META.DATA_QUALITY_RULES
-```
-
----
-
-### Data Quality as a Platform Capability
-
-Data validation is implemented as a **platform service**, not ad-hoc queries.
-
-Capabilities include:
-
-• automated rule execution  
-• exception tracking  
-• reliability scorecards  
-• anomaly detection
+• governance enforcement  
 
 ---
 
 # Platform Metrics
-
-Current platform scale:
 
 | Component | Count |
 |------|------|
@@ -467,7 +457,8 @@ Current platform scale:
 | dbt | Transformations |
 | SQL | Data modeling |
 | GitHub | Version control |
-| Data Quality Framework | Validation & monitoring |
+| Apache Airflow | Pipeline orchestration |
+| GitHub Actions | CI/CD automation |
 
 ---
 
@@ -479,6 +470,9 @@ enterprise-data-platform
 ├── architecture
 │   ├── enterprise_data_platform_architecture.png
 │   └── platform_architecture.mmd
+│
+├── orchestration
+│   └── airflow_data_platform_dag.py
 │
 ├── docs
 │   └── governance_framework.md
@@ -502,7 +496,8 @@ enterprise-data-platform
 │   ├── 07_ops_monitoring_views.png
 │   └── 08_platform_layer_summary.png
 │
-└── README.md
+└── .github/workflows
+    └── data_platform_ci.yml
 ```
 
 ---
@@ -513,23 +508,10 @@ This project demonstrates skills relevant to:
 
 • Data Quality Engineer  
 • Data Governance Engineer  
-• Data Steward  
 • Metadata Engineer  
 • Analytics Engineer  
 • Data Platform Engineer  
 • Data Reliability Engineer
-
----
-
-# Future Enhancements
-
-Possible improvements include:
-
-• integration with enterprise data catalogs (Collibra / Alation)  
-• automated lineage visualization  
-• CI/CD pipeline validation  
-• real-time observability dashboards  
-• automated SLA alerting  
 
 ---
 
