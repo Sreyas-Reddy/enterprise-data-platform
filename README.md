@@ -4,7 +4,6 @@ Snowflake • dbt • Data Quality • Metadata Governance • Data Reliability 
 
 ![Enterprise Data Platform Architecture](architecture/enterprise_data_platform_architecture.png)
 
-=======
 Snowflake • dbt • Data Quality • Metadata Governance • Data Reliability • Data Observability • CI/CD • Orchestration
 
 ---
