@@ -442,7 +442,7 @@ Lineage tracking enables:
 | dbt Models | 25+ |
 | Governance Tables | 6 |
 | Monitoring Views | 10+ |
-| Data Quality Rules | multiple |
+| Data Quality Rules | 65+ |
 
 ---
 
